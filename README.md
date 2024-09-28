@@ -12,6 +12,8 @@ Read the gray and color image using imread()
 ### Step2:
 Print the image using imshow().
 
+
+
 ### Step3:
 Use calcHist() function to mark the image in graph frequency for gray and color image.
 
@@ -23,81 +25,56 @@ The Histogram of gray scale image and color image is shown.
 
 
 ## Program:
-```
-# Developed By: ARHAM S
-# Register Number: 212222110005
-
-
-!pip install opencv-python
-
+``` python
 import cv2
-import matplotlib.pyplot as plt
-gray_image = cv2.imread('gray_image.jpeg')
-color_image = cv2.imread('color_image.jpg')
-cv2.imshow("Gray image",gray_image)
-cv2.imshow("color image",color_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-
 import numpy as np
-gray_image=cv2.imread('gray_image.jpeg')
-import matplotlib.pyplot as plt 
-gray_hist=cv2.calcHist(gray_image,[0],None,[255],[0,255])
-plt.figure()
-plt.imshow(gray_image)
-plt.show()
-plt.title("Histogram")
-plt.xlabel("Grayscale value")
-plt.ylabel("pixel count")
-plt.stem(gray_hist)
-plt.show()
+from matplotlib import pyplot as plt
 
-import numpy as np
-color_image=cv2.imread('color_image.jpg')
-import matplotlib.pyplot as plt 
-color_hist=cv2.calcHist(color_image,[0],None,[255],[0,255])
-plt.figure()
-plt.imshow(color_image)
-plt.show()
-plt.title("Histogram")
-plt.xlabel("Colorscale value")
-plt.ylabel("pixel count")
-plt.stem(color_hist)
-plt.show()
+# Load the color image
+image = cv2.imread('flower.jpeg')
 
-import cv2
-gray_image = cv2.imread("gray_image.jpeg",0)
-cv2.imshow('Grey Scale Image',gray_image)
-equ = cv2.equalizeHist(gray_image)
-cv2.imshow("Equalized Image",equ)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# Convert the image to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
+hist_original = cv2.calcHist([gray_image], [0], None, [256], [0, 256])
+
+# Apply histogram equalization
+equalized_image = cv2.equalizeHist(gray_image)
+
+# Plotting the original grayscale image, equalized image, and histograms
+plt.figure(figsize=(10, 7))
+
+# Show original grayscale image
+plt.subplot(2, 2, 1)
+plt.imshow(gray_image, cmap='gray')
+plt.title('Original Grayscale Image')
+plt.axis('off')
+
+# Show equalized grayscale image
+plt.subplot(2, 2, 2)
+plt.imshow(equalized_image, cmap='gray')
+plt.title('Equalized Image')
+plt.axis('off')
+
+# Plot histogram of the original grayscale image
+plt.subplot(2, 2, 3)
+plt.plot(hist_original, color='black')
+plt.title('Original Histogram')
+plt.xlim([0, 256])
+
+# Plot histogram of the equalized image
+plt.subplot(2, 2, 4)
+hist_equalized = cv2.calcHist([equalized_image], [0], None, [256], [0, 256])
+plt.plot(hist_equalized, color='black')
+plt.title('Equalized Histogram')
+plt.xlim([0, 256])
+
+plt.tight_layout()
+plt.show()
 
 ```
 ## Output:
-### Input Grayscale Image and Color Image
-![image](https://github.com/user-attachments/assets/9c93ba99-a35d-44b3-9114-7acb136c368e)
-
-### Histogram of Grayscale Image and any channel of Color Image
-
-#### Grayscale Image
-
-![image](https://github.com/user-attachments/assets/eb7e421b-ad69-4757-9037-cf1b0085f08b)
-
-![image](https://github.com/user-attachments/assets/3de3c73f-6bf2-4b01-96ca-0583244668b5)
-
-#### Color Image
-
-![image](https://github.com/user-attachments/assets/335eb738-c9cd-465d-ab3c-d58dabce4b49)
-
-![image](https://github.com/user-attachments/assets/a12235d1-28ec-4e0e-83e2-3d6285b49d0b)
-
-### Histogram Equalization of Grayscale Image.
-
-![image](https://github.com/user-attachments/assets/46994668-8072-42bb-9941-693aadc88e86)
-
-![image](https://github.com/user-attachments/assets/78c6b286-b9dc-405d-9780-0580a6b06f8b)
+![image](https://github.com/user-attachments/assets/9b590090-6e3d-4139-8121-97a6906a6ab3)
 
 
 
